@@ -25,18 +25,3 @@ export function findUser(username, password){
         u => u.username === username && u.password === password
     )
 }
-
-// export function saveToken(userId, token){
-//     tokens.set(token, userId)
-// }
-
-// export function findUserByToken(token){
-//     const userId = tokens.get(token)
-//     if (!userId) return null
-
-//     return users.find( u => u.id === userId)
-// }
-
-// export function deleteUser(token){
-//     tokens.delete(token)
-// }
