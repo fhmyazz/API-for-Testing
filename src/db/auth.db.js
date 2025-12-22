@@ -1,0 +1,42 @@
+const tokenGenerator = (length) => {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    let result = ""
+
+    for (let i = 0; i < length; i ++){
+        result += characters.charAt(Math.floor(Math.random() * length))
+    }
+    return result
+}
+const users = [
+    { "id": `id-${tokenGenerator(5)}`, "username": "admin", "password": "admin123"}
+]
+
+
+// const tokens = new Map()
+
+export function createUser(username, password){
+    const user = { id: `id-${tokenGenerator(5)}`, username, password}
+    users.push(user)
+    return user
+}
+
+export function findUser(username, password){
+    return users.find(
+        u => u.username === username && u.password === password
+    )
+}
+
+// export function saveToken(userId, token){
+//     tokens.set(token, userId)
+// }
+
+// export function findUserByToken(token){
+//     const userId = tokens.get(token)
+//     if (!userId) return null
+
+//     return users.find( u => u.id === userId)
+// }
+
+// export function deleteUser(token){
+//     tokens.delete(token)
+// }
