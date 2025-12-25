@@ -26,6 +26,7 @@ Since it's for my testing journey, it'll be simplified.
 -- Clone this repository
 -- Install the dependencies
 -- Import this into postman `./test/postman/local-login_posts.postman_collection`
+-- Automation will be added further as in my next learning journey
 
 ## Testing Scope
 Positive:
