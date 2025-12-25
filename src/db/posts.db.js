@@ -31,7 +31,7 @@ export function updatePost(id, data){
 }
 
 export function deletePost(id){
-    const pIndex = posts.findIndex(p => p.id === id)
+    const pIndex = posts.findIndex(p => p.id === Number(id))
     // findIndex() sudah pasti return -1 jika data tidak ditemukan
     if (pIndex === -1) return false
 
