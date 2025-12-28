@@ -11,7 +11,7 @@ export function createPostController(req, res){
 
 // express selalu memanggil (req, res) walaupun tidak dieksekusi
 export function getPostsController(req, res){
-    res.status(200).json(PostService.getAll)
+    res.status(200).json(PostService.getAll())
 }
 
 export function getPostController(req, res){
