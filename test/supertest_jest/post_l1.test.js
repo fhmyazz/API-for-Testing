@@ -4,6 +4,7 @@ import app from "../../app.js"
 describe("POST CRUD Level 1", () => {
     let createdPost
 
+    // positive case start here
     it("Create Post - Success", async () => {
         const payload = {
                 title: "Article 1",
@@ -56,5 +57,45 @@ describe("POST CRUD Level 1", () => {
 
         expect(res.statusCode).toBe(200)
         expect(res.body.message).toBeDefined()
+    })
+
+
+    // negative case starts here
+    it("POST /posts - title is missing", async () => {
+        const res = await request(app)
+            .post("/posts")
+            .send({
+                content: "isi",
+                author: "penulis"
+            })
+
+        expect(res.statusCode).toBe(404)
+        expect(res.body.message).toBeDefined()
+    })
+
+    it("GET /posts/:id - post not found", async () =>{
+        const res = await request(app)
+            .get("/posts/9999")
+
+        expect(res.statusCode).toBe(404)
+        // /i agar case insensitive
+        expect(res.body.message).toMatch(/tidak ditemukan/i)
+    })
+
+    it("PATCH /posts/:id - post not found", async () => {
+        const res = await request(app)
+            .patch("/posts/9999")
+            .send({ title: "judul"})
+
+        expect(res.statusCode).toBe(404)
+        expect(res.body.message).toMatch(/tidak ditemukan/i)
+    })
+
+    it("DELETE /posts/:id - post not found", async () => {
+        const res = await request(app)
+            .delete("/posts/9999")
+
+        expect(res.statusCode).toBe(404)
+        expect(res.body.message).toMatch(/tidak ditemukan/i)
     })
 })
