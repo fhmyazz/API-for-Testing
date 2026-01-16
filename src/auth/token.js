@@ -14,5 +14,5 @@ export function verifyToken(token){
     if(!token) return null
     if(!token.startsWith("token-")) return null
 
-    return token.replace("token-", "")
+    return tokens.has(token)
 }
