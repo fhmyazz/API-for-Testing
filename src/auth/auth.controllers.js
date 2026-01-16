@@ -1,6 +1,8 @@
-import { login } from "../services/auth.services.js"
+import { login } from "./auth.services.js"
 
 export function loginController(req, res){
+    console.log("REQ BODY: ", req.body)
+    
     try{
         const { username, password } = req.body
         const result = login(username, password)
