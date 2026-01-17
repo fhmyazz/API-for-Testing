@@ -1,5 +1,3 @@
-import { tokenGenerator } from "./token.js"
-
 const users = [
     { "id": 1, "username": "admin", "password": "admin123"}
 ]
