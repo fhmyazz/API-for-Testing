@@ -15,7 +15,7 @@ app.use(express.json())
 app.post("/login", loginController)
 
 app.get("/posts/", getPostsController)
-app.get("/posts/:id", getPostController)
+app.get("/posts/:id", authMiddleware, getPostController)
 app.post("/posts", authMiddleware, createPostController)
 app.patch("/posts/:id", authMiddleware, updatePostController)
 app.delete("/posts/:id", authMiddleware, deletePostController)

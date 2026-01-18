@@ -10,10 +10,7 @@ export function authMiddleware(req, res, next){
     }
 
     const token = authHeader.replace("Bearer ", "")
-    console.log("EXTRACTED TOKEN: ", token)
-
     const isValid = verifyToken(token)
-    console.log("VERIFY RESULT: ", isValid)
 
     if(!isValid){
         return res.status(401).json({

@@ -1,12 +1,16 @@
 import { login } from "./auth.services.js"
 
 export function loginController(req, res){
-    console.log("REQ BODY: ", req.body)
-    
     try{
         const { username, password } = req.body
+        
+        if(!username || !password){
+            return res.status(400).json({
+                message: "Username dan Password harus diisi!"
+            })
+        }
         const result = login(username, password)
-
+        
         return res.status(200).json(result)
     } catch( err ){
         return res.status(401).json({

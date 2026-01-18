@@ -15,7 +15,6 @@ export function verifyToken(token){
     if(!token) return null
     if(!token.startsWith("token-")) return null
 
-    console.log(`Tokens: `, tokens)
     for(const savedToken of tokens.values())
         if (savedToken === token){
             return true
