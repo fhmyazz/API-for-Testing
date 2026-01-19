@@ -1,8 +1,8 @@
 # What is this?
-It's gonna be my API personal project. Focused on learning API Fundamentals, so it could help my transition into SDET.
+This is my personal API project. Focused on learning API Fundamentals, so it could support my transition into Software Development Engineer in Testing (SDET).
 
 ## Stack
-Since it's for my testing journey, it'll be simplified.
+Since this project is part of my testing journey, i'll keep it simple.
 - Node.js
 - Express JS
 - Supertest
@@ -10,14 +10,15 @@ Since it's for my testing journey, it'll be simplified.
 
 ## Testing tools
 - Postman (Manual Testing + Scripts)
-- Supertest (Automated testing)
+- Supertest (Automated API testing)
 - Jest (Assertion)
 
 ## Features
 - User Login with token-based authentication
-- CRUD Post
+- Token-based Authorization to protect endpoints
+- CRUD Post API
 - Positive and Negative cases
-- Automated testing using Supertest + Jest
+- Automated API testing with assertion using Supertest + Jest
 
 ## Endpoints
 - POST /login
@@ -40,14 +41,23 @@ Since it's for my testing journey, it'll be simplified.
 
 ## Testing Scope
 Positive:
-- pos-login => Login succeed
-- pos-create_post => Creating post
-- pos-get_post => Get post by ID
+- Login and generate token
+- Creating post using token
+- Get all post
+- Get post by ID using token
+- Update post by ID using token
+- Delete post by ID using token
 
 Negative:
-- neg-login_empty_field => Login with empty field
-- neg-get_random_id => get post by id not exist
-- neg-delete_random_id => delete post by id not exist
+- Login with empty field
+- Creating post without token
+- Creating post with invalid token
+- Creating post with no title
+- Get post by not existed id
+- Update post by id not existed id
+- Delete post by id not existed id
 
 
-### Notes: Since it's only in-memory storage, so data won't be exists after server restart
+### Notes: 
+- Since it's only in-memory storage, so data won't be exists after server restart
+- Token is one-time per login. Re-login will generate a new token
