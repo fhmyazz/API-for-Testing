@@ -1,10 +1,22 @@
 import request from "supertest"
 import app from "../../app.js"
 
-describe("POST CRUD Level 1", () => {
-    let createdPost
+let createdPostId
+let invalidToken
+let token
 
-    // positive case start here
+describe("POST Test - Positive Case", () => {
+    beforeAll(async() => {
+        const payload = {
+            username: "admin",
+            password: "admin123"
+        }
+        const res = await request(app)
+            .post("/login")
+            .send(payload)
+        token = `${res.body.token}`
+    })
+    
     it("Create Post - Success", async () => {
         const payload = {
                 title: "Article 1",
@@ -14,6 +26,7 @@ describe("POST CRUD Level 1", () => {
 
         const res = await request(app)
             .post("/posts")
+            .set("Authorization", `Bearer ${token}`)
             .send(payload)
 
         expect(res.statusCode).toBe(201)
@@ -33,6 +46,7 @@ describe("POST CRUD Level 1", () => {
     it("Get post by ID", async () => {
         const res = await request(app)
             .get(`/posts/${createdPostId}`)
+            .set("Authorization", `Bearer ${token}`)            
 
         expect(res.statusCode).toBe(200)
         expect(res.body.id).toBe(createdPostId)
@@ -45,6 +59,7 @@ describe("POST CRUD Level 1", () => {
 
         const res = await request(app)
             .patch(`/posts/${createdPostId}`)
+            .set("Authorization", `Bearer ${token}`)
             .send(payload)
 
         expect(res.statusCode).toBe(200)
@@ -54,16 +69,60 @@ describe("POST CRUD Level 1", () => {
     it("Delete post by ID", async () => {
         const res = await request(app)
             .delete(`/posts/${createdPostId}`)
+            .set("Authorization", `Bearer ${token}`)
 
         expect(res.statusCode).toBe(200)
         expect(res.body.message).toBeDefined()
     })
+})
 
+describe("Post - Negative", () => {
+    beforeAll(async() => {
+        const payload = {
+            username: "admin",
+            password: "admin123"
+        }
 
-    // negative case starts here
+        const res = await request(app)
+            .post("/login")
+            .send(payload)
+
+        token = `${res.body.token}`
+        invalidToken = `${res.body.token}_abc`
+    })
+
+    it("Posts - without token", async () => {
+        const payload = {
+            title: "judul post",
+            content: "isi post",
+            author: "penulis" 
+        }
+        const res = await request(app)
+            .post("/posts")
+            .send(payload)
+            
+        expect(res.statusCode).toBe(401)
+        expect(res.body.message).toMatch(/Authorization|token/i)
+    })
+
+    it("Posts - invalid token", async () => {
+        const payload = {
+            title: "judul post",
+            content: "isi post",
+            author: "penulis" 
+        }
+        const res = await request(app)
+            .post("/posts")
+            .set("Authorization", `Bearer ${invalidToken}`)
+            .send(payload)
+        
+        expect(res.statusCode).toBe(401)
+    })
+
     it("POST /posts - title is missing", async () => {
         const res = await request(app)
             .post("/posts")
+            .set("Authorization", `Bearer ${token}`)
             .send({
                 content: "isi",
                 author: "penulis"
@@ -76,15 +135,16 @@ describe("POST CRUD Level 1", () => {
     it("GET /posts/:id - post not found", async () =>{
         const res = await request(app)
             .get("/posts/9999")
+            .set("Authorization", `Bearer ${token}`)
 
         expect(res.statusCode).toBe(404)
-        // /i agar case insensitive
         expect(res.body.message).toMatch(/tidak ditemukan/i)
     })
 
     it("PATCH /posts/:id - post not found", async () => {
         const res = await request(app)
             .patch("/posts/9999")
+            .set("Authorization", `Bearer ${token}`)
             .send({ title: "judul"})
 
         expect(res.statusCode).toBe(404)
@@ -94,6 +154,7 @@ describe("POST CRUD Level 1", () => {
     it("DELETE /posts/:id - post not found", async () => {
         const res = await request(app)
             .delete("/posts/9999")
+            .set("Authorization", `Bearer ${token}`)
 
         expect(res.statusCode).toBe(404)
         expect(res.body.message).toMatch(/tidak ditemukan/i)

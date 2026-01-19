@@ -5,13 +5,19 @@ It's gonna be my API personal project. Focused on learning API Fundamentals, so 
 Since it's for my testing journey, it'll be simplified.
 - Node.js
 - Express JS
+- Supertest
+- Jest
 
 ## Testing tools
 - Postman (Manual Testing + Scripts)
+- Supertest (Automated testing)
+- Jest (Assertion)
 
 ## Features
-- User Login
+- User Login with token-based authentication
 - CRUD Post
+- Positive and Negative cases
+- Automated testing using Supertest + Jest
 
 ## Endpoints
 - POST /login
@@ -26,7 +32,11 @@ Since it's for my testing journey, it'll be simplified.
 - Clone this repository
 - Install the dependencies
 - Import this into postman `./test/postman/local-login_posts.postman_collection`
-- Automation will be added further as in my next learning journey
+
+### Automation Testing =>
+- Clone this repository
+- Install the dependencies
+- Run this on terminal (project root) `npm test`
 
 ## Testing Scope
 Positive:
