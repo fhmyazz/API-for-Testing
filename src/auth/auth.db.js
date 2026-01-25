@@ -14,3 +14,9 @@ export function findUser(username, password){
         u => u.username === username && u.password === password
     )
 }
+
+export function findUserByUsername(username){
+    return users.find(
+        u => u.username === username
+    )
+}

@@ -1,5 +1,6 @@
 import express from "express"
-import { loginController } from "./src/auth/auth.controllers.js"
+import cors from "cors"
+import { loginController, registerController } from "./src/auth/auth.controllers.js"
 import {
     createPostController,
     getPostsController,
@@ -10,14 +11,18 @@ import {
 import { authMiddleware } from "./src/auth/auth.middleware.js"
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 
-app.post("/login", loginController)
+// auth
+app.post("/api/auth/login", loginController)
+app.post("/api/auth/register", registerController)
 
-app.get("/posts/", getPostsController)
-app.get("/posts/:id", authMiddleware, getPostController)
-app.post("/posts", authMiddleware, createPostController)
-app.patch("/posts/:id", authMiddleware, updatePostController)
-app.delete("/posts/:id", authMiddleware, deletePostController)
+// posts
+app.get("/api/posts/", getPostsController)
+app.get("/api/posts/:id", authMiddleware, getPostController)
+app.post("/api/posts", authMiddleware, createPostController)
+app.patch("/api/posts/:id", authMiddleware, updatePostController)
+app.delete("/api/posts/:id", authMiddleware, deletePostController)
 
 export default app
