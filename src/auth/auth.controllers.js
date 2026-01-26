@@ -2,6 +2,7 @@ import { login, register } from "./auth.services.js"
 
 export function loginController(req, res){
     try{
+        console.log('REQ BODY: ', req.body)
         const { username, password } = req.body
         
         if(!username || !password){
