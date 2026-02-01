@@ -2,17 +2,15 @@ import { login, register } from "./auth.services.js"
 
 export function loginController(req, res){
     try{
-        console.log('REQ BODY: ', req.body)
         const { username, password } = req.body
-        
         if(!username || !password){
             return res.status(400).json({
                 success: false,
-                error: "Username and Password can't be empty"
+                error: "Please fill all fields"
             })
         }
+
         const result = login(username, password)
-        
         return res.status(200).json({
             success: true,
             data: result
@@ -27,17 +25,22 @@ export function loginController(req, res){
 
 export function registerController(req, res){
     try{
-        const { username, password } = req.body
-
-        if(!username || !password){
+        const { username, email, password } = req.body
+        if(!username || !email || !password){
             return res.status(400).json({
                 success: false,
-                error: "Username and Password can't be empty"
+                error: "Please fill all fields."
             })
         }
 
-        const result = register(username, password)
+        if(password.length < 6){
+            return res.status(400).json({
+                success: false,
+                error: "Password must be at least 6 characters"
+            })
+        }
 
+        const result = register(username, email, password)
         return res.status(201).json({
             success: true,
             data: result
