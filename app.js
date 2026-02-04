@@ -3,11 +3,11 @@ import cors from "cors"
 import { loginController, registerController } from "./src/auth/auth.controllers.js"
 import {
     createPostController,
-    getPostsController,
+    getAllPostController,
     getPostController,
     updatePostController,
     deletePostController
-} from "./src/controllers/posts.controllers.js"
+} from "./src/posts/posts.controllers.js"
 import { authMiddleware } from "./src/auth/auth.middleware.js"
 
 const app = express()
@@ -19,7 +19,7 @@ app.post("/api/auth/login", loginController)
 app.post("/api/auth/register", registerController)
 
 // posts
-app.get("/api/posts/", getPostsController)
+app.get("/api/posts/", getAllPostController)
 app.get("/api/posts/:id", authMiddleware, getPostController)
 app.post("/api/posts", authMiddleware, createPostController)
 app.patch("/api/posts/:id", authMiddleware, updatePostController)

@@ -1,11 +1,7 @@
-import * as db from "../db/posts.db.js"
+import * as db from "./posts.db.js"
 
 export class PostService{
     static create(data){
-        if (!data.title) throw new Error("Title wajib diisi")
-        if (!data.content) throw new Error("Content wajib diisi")
-        if (!data.author) throw new Error("Author wajib diisi")
-
         return db.createPost(data)
     }
 
