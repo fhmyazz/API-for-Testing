@@ -1,7 +1,5 @@
-let posts = [
-    {"id": 1, "title": "contoh judul", "content": "contoh konten", "author": "contoh penulis", "createdAt": "2099-09-09"}
-]
-let currentId = 2
+let posts = []
+let currentId = 1
 
 export function createPost({ title, content, author }){
     const post = {
