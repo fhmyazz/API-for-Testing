@@ -13,7 +13,7 @@ export function createPostController(req, res){
         const post = PostService.create(req.body)
         return res.status(201).json({
             success: true,
-            data: {posts: post}
+            data: {post: post}
         })
     } catch (err){
         res.status(404).json({ 
@@ -36,11 +36,11 @@ export function getPostController(req, res){
         const post = PostService.getOne(req.params.id)
         res.status(200).json({
             success: true,
-            data: {posts: post}
+            data: {post: post}
         })
     } catch (err) {
         res.status(404).json({ 
-            success: true,
+            success: false,
             error: err.message
         })
     }

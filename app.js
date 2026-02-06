@@ -19,7 +19,7 @@ app.post("/api/auth/login", loginController)
 app.post("/api/auth/register", registerController)
 
 // posts
-app.get("/api/posts/", getAllPostController)
+app.get("/api/posts/", authMiddleware, getAllPostController)
 app.get("/api/posts/:id", authMiddleware, getPostController)
 app.post("/api/posts", authMiddleware, createPostController)
 app.patch("/api/posts/:id", authMiddleware, updatePostController)
